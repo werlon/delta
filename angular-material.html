@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Grid</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+
+    <link rel="stylesheet" href="app/css/media-queries.css"/>
+    <link rel="stylesheet" href="bower_components/angular-toastr-master/dist/angular-toastr.css"/>
+    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+    <script src="bower_components/angular-toastr-master/dist/angular-toastr.tpls.js"></script>
+    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+
+    <script src="app/js/primeiro-config.js"></script>
+    <script src="arquitetura/service/alert-service.js"></script>
+    <script src="arquitetura/filter/maiusculo.js"></script>
+    <script src="app/js/controller/anmaterial.js"></script>
+
+
+</head>
+<body ng-app="primeiro">
+<div ng-controller="IndexControllerAnMaterial" class="container">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Titulo do panel {{ultimaDataSetada}}
+        </div>
+        <div class="panel-body">
+
+            <form name="formPessoa" ng-submit="salvar()" novalidate>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <!--<div class="form-group" ng-class="{'has-error':formPessoa.nome.$invalid && formPessoa.nome.$touched}">
+                            <label class="control-label">Nome</label>
+
+                            <input type="text" ng-model="entidade.nome" name="nome" class="form-control"
+                                    required ng-maxlength="20" ng-minlength="3"/>
+                            <div ng-messages="formPessoa.nome.$error"
+                                    ng-if="formPessoa.nome.$invalid && formPessoa.nome.$touched" class="help-block">
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </div>-->
+                        <md-input-container>
+                            <label>Nome</label>
+                            <input ng-model="entidade.nome" name="nome" required ng-maxlength="20" ng-minlength="3"/>
+                            <div ng-messages="formPessoa.nome.$error"
+                                 ng-if="formPessoa.nome.$invalid && formPessoa.nome.$touched" class="help-block">
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-3">
+                        <!--<div class="form-group" ng-class="{'has-error':formPessoa.sobrenome.$invalid && formPessoa.sobrenome.$touched}">
+                            <label class="control-label">Sobrenome</label>
+                            <input type="text" ng-model="entidade.sobrenome" name="sobrenome" class="form-control"
+                                   required ng-maxlength="50" ng-minlength="3"/>
+                            <div ng-messages="formPessoa.sobrenome.$error"
+                                    ng-if="formPessoa.sobrenome.$invalid && formPessoa.sobrenome.$touched"
+                                 class="help-block">
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </div>-->
+                        <md-input-container>
+                            <label>Sobrenome</label>
+                            <input ng-model="entidade.sobrenome" name="sobrenome" required ng-maxlength="50" ng-minlength="3"/>
+                            <div ng-messages="formPessoa.sobrenome.$error"
+                                 ng-if="formPessoa.sobrenome.$invalid && formPessoa.sobrenome.$touched"
+                                 class="help-block">
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="col-sm-3">
+                        <!--<div class="form-group" ng-class="{'has-error':formPessoa.nascimento.$invalid && formPessoa.nascimento.$touched}">
+
+                            <label class="control-label">Nascimento</label>
+                            <input type="date" ng-model="entidade.nascimento" name="nascimento" class="form-control"
+                                   required/>
+                            <div ng-messages="formPessoa.nascimento.$error"
+                                    ng-if="formPessoa.nascimento.$invalid && formPessoa.nascimento.$touched"
+                                    class="help-block">
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </div>-->
+                        <md-datepicker ng-model="entidade.nascimento" md-placeholder="Informe a data">
+                            <input ng-model="entidade.nascimento" name="nascimento" required/>
+                            <div ng-messages="formPessoa.nascimento.$error"
+                                 ng-if="formPessoa.nascimento.$invalid && formPessoa.nascimento.$touched"
+                                 class="help-block">
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </md-datepicker>
+                    </div>
+                    <div class="col-sm-3">
+                        <!--<div class="form-group">
+
+                            <label class="control-label">Cor</label>
+                            <input type="text" ng-model="entidade.cor" name="cor" class="form-control"
+                                   />
+                        </div>-->
+                        <md-input-container>
+                            <label>Cor</label>
+                            <input ng-model="entidade.cor" required>
+                            <div ng-messages="formPessoa.sobrenome.$error"
+                                 ng-if="formPessoa.cor.$invalid && formPessoa.cor.$touched"
+                                 class="help-block">
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table">
+                            <thead>
+                            <tr ng-class="myClass">
+                                <th>Nome</th>
+                                <th>Sobrenome</th>
+                                <th>Nascimento</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(id,pessoa) in listaDePessoas">
+                                <td ng-bind="::pessoa.nome | maiusculo"></td>
+                                <td ng-bind="::pessoa.sobrenome"></td>
+                                <td ng-bind="::pessoa.nascimento | date: 'dd/MM/yyyy'"></td>
+                                <td>
+                                    <button class="btn btn-danger" ng-click="excluir(id)"><i class="fa fa-trash"></i> Excluir</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Salvar</button>
+                            <button class="btn btn-default" type="button" ng-click="limpar()"><i class="fa fa-eraser"></i> Limpar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div ui-grid="gridOption" style="height: 200px;"></div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
