@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- para usar o messages precisamos criar um form com um name -->
+<!--inclui o messages.js-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Messages</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="app/css/media-queries.css"/>
+    <link rel="stylesheet" href="bower_components/angular-toastr-master/dist/angular-toastr.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css"/>
+
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-toastr-master/dist/angular-toastr.tpls.js"></script>
+    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+
+    <script src="app/js/primeiro-config.js"></script>
+    <script src="arquitetura/service/alert-service.js"></script>
+    <script src="app/js/controller/messages.js"></script>
+    <script src="arquitetura/filter/maiusculo.js"></script>
+
+</head>
+<body ng-app="primeiro"><!--habilitando o angular-->
+<div ng-controller="IndexControllerMessages" class="container"><!--tag e tab auto complete-->
+    <!--container e container-fluid
+        o fluid acompanha as bordas laterais se for widescreen-->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Titulo do panel
+        </div>
+        <div class="panel-body">
+
+            <form name="formPessoa" ng-submit="salvar()" novalidate>
+                <!--o novalidate serve para a validação seja feita pelo angular e nao pelo brouser-->
+
+                <div class="row">
+                    <div class="col-sm-4"><!--control-label help-block é ativado com has-error-->
+                        <!--<div class="form-group has-error">-->
+                        <div class="form-group" ng-class="{'has-error':formPessoa.nome.$invalid && formPessoa.nome.$touched}">
+                            <label class="control-label">Nome</label>
+
+                            <input type="text" ng-model="entidade.nome" name="nome" class="form-control"
+                                    required ng-maxlength="20" ng-minlength="3"/>
+                            <div ng-messages="formPessoa.nome.$error"
+                                    ng-if="formPessoa.nome.$invalid && formPessoa.nome.$touched" class="help-block">
+                                <!--o form cria um ponteiro no controlador e $error é do angular-->
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group" ng-class="{'has-error':formPessoa.sobrenome.$invalid && formPessoa.sobrenome.$touched}">
+                            <label class="control-label">Sobrenome</label>
+                            <input type="text" ng-model="entidade.sobrenome" name="sobrenome" class="form-control"
+                                   required ng-maxlength="50" ng-minlength="3"/>
+                            <div ng-messages="formPessoa.sobrenome.$error"
+                                    ng-if="formPessoa.sobrenome.$invalid && formPessoa.sobrenome.$touched"
+                                 class="help-block">
+                                <!--o form tem que criar um ponteiro no controlador e $error é do angular-->
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group" ng-class="{'has-error':formPessoa.nascimento.$invalid && formPessoa.nascimento.$touched}">
+
+                            <label class="control-label">Nascimento</label>
+                            <input type="date" ng-model="entidade.nascimento" name="nascimento" class="form-control"
+                                   required/>
+                            <div ng-messages="formPessoa.nascimento.$error"
+                                    ng-if="formPessoa.nascimento.$invalid && formPessoa.nascimento.$touched"
+                                    class="help-block">
+                                <!--o form tem que criar um ponteiro no controlador e $error é do angular-->
+                                <div ng-messages-include="app/template/messages.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table">
+                            <thead>
+                            <tr ng-class="myClass">
+                                <th>Nome</th>
+                                <th>Sobrenome</th>
+                                <th>Nascimento</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(id,pessoa) in listaDePessoas">
+                                <td ng-bind="::pessoa.nome | maiusculo"></td><!-- os :: sao para deixar o bind estatico -->
+                                <td ng-bind="::pessoa.sobrenome"></td>
+                                <td ng-bind="::pessoa.nascimento | date : 'dd/MM/yyyy' "></td>
+                                <!--usando filter para formatar data-->
+                                <td>
+                                    <button class="btn btn-danger" ng-click="excluir(id)"><i class="fa fa-trash"></i> Excluir</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group">
+                            <!--<button class="btn btn-primary" ng-click="salvar()"><i class="fa fa-save"></i> Salvar</button>-->
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Salvar</button>
+                            <!--converti para submit e e coloco ng-subit no form-->
+
+                            <button class="btn btn-default" type="button" ng-click="limpar()"><i class="fa fa-eraser"></i> Limpar</button>
+                            <!--<button class="btn btn-danger" ng-click="excluir()"><i class="fa fa-trash"></i> Excluir</button>-->
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+
+
+        </div>
+    </div>
+
+
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+    <script src="bower_components/angular/angular.js"></script>
+
+    <script src="app/js/primeiro-config.js"></script>
+    <script src="app/js/controller/index-controller2.js"></script>
+</head>
+<body ng-app="primeiro"><!--habilitando o angular-->
+    <div ng-controller="IndexController2"><!--tag e tab auto complete-->
+        <!--{{nome}}--> <!--esta é uma variável que é setada dentro do controlador-->
+        <!--posso tirar o chave chave  e usar o ng-bing assim o debug nao mostra o chave chave -->
+        <span ng-style="myStyle" ng-bind="nome"></span><!-- este é executado muito mais rapido -->
+
+        <input type="text" ng-model="nome"/>
+
+        <!--isso aplica um bind two way (executar caminho em 2 vias)-->
+        <!--se eu editar o input a variável fica referenciado como model e se muda automatico-->
+
+        <button ng-click="testeFuncao2()">Teste Click</button>
+    </div>
+<!--{{nome}} este não vai aparecer pois esta fora do controlador-->
+</body>
+</html>

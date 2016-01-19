@@ -1,0 +1,29 @@
+{
+  "name": "primeiro",
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "test",
+    "tests"
+  ],
+  "dependecies": {
+    "angular": "~1.4.8"
+  },
+  "authors": [
+    "werlon <werlong@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "angular": "v1.4.8",
+    "bootstrap": "~3.3.6",
+    "angular-messages": "~1.4.8",
+    "font-awesome": "~4.5.0",
+    "angular-toastr": "~1.6.0",
+    "angular-ui-grid": "~3.0.7"
+  }
+}
